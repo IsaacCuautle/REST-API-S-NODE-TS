@@ -1,4 +1,10 @@
+import express from "express";
 
-export function startServer() {
-    console.log("Server is starting...");
-}
+const server = express();
+
+// Routing
+server.get("/", (req, res) => {
+    res.send("Hello, World!");
+});
+
+export default server;

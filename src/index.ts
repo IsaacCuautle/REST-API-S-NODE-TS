@@ -1,3 +1,5 @@
-import { startServer } from "./server";
+import server from "./server";
 
-startServer();
+server.listen(3000, () => {
+    console.log(`REST API is running on http://localhost:3000`);
+})
