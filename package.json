@@ -1,0 +1,17 @@
+{
+  "name": "rest-api-node-ts-server",
+  "version": "1.0.0",
+  "description": "REST API's con Express & TS",
+  "license": "ISC",
+  "author": "Luis Isaac Cuautle",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -x ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "typescript": "^5.8.3"
+  }
+}
