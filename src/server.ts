@@ -19,7 +19,11 @@ async function connectToDatabase() {
 }
 connectToDatabase();
 
+// Instancia de express
 const server = express();
+
+// Leer datos de formularios
+server.use(express.json())
 
 // router middleware
 server.use("/api/products", router);

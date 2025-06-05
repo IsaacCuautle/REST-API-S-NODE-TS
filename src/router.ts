@@ -1,15 +1,12 @@
 import { Router } from "express";
 
+import { createProduct } from "./handlers/products";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.json({
-        message: "From the server GET",
-    });
-});
+router.post("/", createProduct);
 
-router.post("/", (req, res) => {
+router.get("/", (req, res) => {
     res.json({
         message: "From the server post",
     });
