@@ -4,7 +4,7 @@ import { createProduct } from "./handlers/products";
 
 const router = Router();
 
-router.post("/", createProduct);
+router.post("/", createProduct );
 
 router.get("/", (req, res) => {
     res.json({
