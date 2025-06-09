@@ -1,7 +1,11 @@
 import { Router } from "express";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
-import { createProduct } from "./handlers/products";
+import {
+  createProduct,
+  getProducts,
+  getProductsByID,
+} from "./handlers/products";
 import { handleInputErrors } from "./middleware";
 
 const router = Router();
@@ -27,11 +31,14 @@ router.post(
   createProduct
 );
 
-router.get("/", (req, res) => {
-  res.json({
-    message: "From the server post",
-  });
-});
+router.get("/", getProducts);
+
+router.get(
+  "/:id",
+  param("id").isInt().withMessage("El ID no valido"),
+  handleInputErrors,
+  getProductsByID
+);
 
 router.put("/", (req, res) => {
   res.json({
