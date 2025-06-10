@@ -2,11 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import Product from "../models/Product.model";
 
-const createProduct = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+const createProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const product = await Product.create(req.body);
     res.json({ data: product });
@@ -15,11 +11,7 @@ const createProduct = async (
   }
 };
 
-const getProducts = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+const getProducts = async (res: Response): Promise<void> => {
   try {
     const products = await Product.findAll({
       limit: 5,
@@ -33,11 +25,7 @@ const getProducts = async (
   }
 };
 
-const getProductsByID = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+const getProductsByID = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const product = await Product.findByPk(id, {
@@ -50,7 +38,7 @@ const getProductsByID = async (
       });
     }
 
-    res.json({
+    res.status(200).json({
       data: product,
     });
   } catch (error) {
@@ -58,4 +46,23 @@ const getProductsByID = async (
   }
 };
 
-export { createProduct, getProducts, getProductsByID };
+const updateProduct = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const product = await Product.findByPk(id);
+
+  if (!product) {
+    res.status(404).json({
+      error: "Producto no encontrado",
+    });
+  }
+
+  // Actualizar
+  await product.update(req.body);
+  await product.save();
+
+  res.status(200).json({
+    data: product,
+  });
+};
+
+export { createProduct, getProducts, getProductsByID, updateProduct };
