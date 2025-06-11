@@ -3,12 +3,14 @@ import { body, param } from "express-validator";
 
 import {
   createProduct,
+  deleteProduct,
   getProducts,
   getProductsByID,
   updateAvailability,
   updateProduct,
 } from "./handlers/products";
 import { handleInputErrors } from "./middleware";
+import Product from "./models/Product.model";
 
 const router = Router();
 
@@ -64,13 +66,19 @@ router.put(
   updateProduct
 );
 
-router.patch("/:id", updateAvailability);
+router.patch(
+  "/:id",
+  param("id").isInt().withMessage("El ID no valido"),
+  handleInputErrors,
+  updateAvailability
+);
 
-router.delete("/", (req, res) => {
-  res.json({
-    message: "From the server delete",
-  });
-});
+router.delete(
+  "/:id",
+  param("id").isInt().withMessage("El ID no valido"),
+  handleInputErrors,
+  deleteProduct
+);
 
 export default router;
 // This file defines the routes for the server.
