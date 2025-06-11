@@ -5,6 +5,7 @@ import {
   createProduct,
   getProducts,
   getProductsByID,
+  updateAvailability,
   updateProduct,
 } from "./handlers/products";
 import { handleInputErrors } from "./middleware";
@@ -63,11 +64,7 @@ router.put(
   updateProduct
 );
 
-router.patch("/", (req, res) => {
-  res.json({
-    message: "From the server patch",
-  });
-});
+router.patch("/:id", updateAvailability);
 
 router.delete("/", (req, res) => {
   res.json({

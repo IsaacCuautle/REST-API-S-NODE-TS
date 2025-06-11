@@ -65,4 +65,29 @@ const updateProduct = async (req: Request, res: Response) => {
   });
 };
 
-export { createProduct, getProducts, getProductsByID, updateProduct };
+const updateAvailability = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const product = await Product.findByPk(id);
+
+  if (!product) {
+    res.status(404).json({
+      error: "Producto no encontrado",
+    });
+  }
+
+  // Actualizar
+  product.availability = !product.dataValues.availability;
+  await product.save();
+
+  res.status(200).json({
+    data: product,
+  });
+};
+
+export {
+  createProduct,
+  getProducts,
+  getProductsByID,
+  updateProduct,
+  updateAvailability,
+};
