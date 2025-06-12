@@ -11,15 +11,17 @@ const createProduct = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getProducts = async (res: Response): Promise<void> => {
+const getProducts = async (req: Request, res: Response): Promise<void> => {
   try {
     const products = await Product.findAll({
       limit: 5,
       attributes: { exclude: ["id", "createdAt", "updatedAt"] },
     });
-    res.json({
+    
+    res.status(200).json({
       data: products,
     });
+    
   } catch (error) {
     console.log(`\nOcurrio un error: ${error}\n`);
   }

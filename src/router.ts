@@ -10,7 +10,6 @@ import {
   updateProduct,
 } from "./handlers/products";
 import { handleInputErrors } from "./middleware";
-import Product from "./models/Product.model";
 
 const router = Router();
 
