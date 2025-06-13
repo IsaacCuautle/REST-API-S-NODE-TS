@@ -10,6 +10,8 @@ const db = new Sequelize(process.env.EXTERNAL_DB_URL!, {
       require: false,
     },
   },
+
+  logging: false,
 });
 
 export default db;

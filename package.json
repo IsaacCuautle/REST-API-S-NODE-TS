@@ -6,11 +6,17 @@
   "author": "Luis Isaac Cuautle",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -x ts-node src/index.ts"
+    "dev": "nodemon -x ts-node src/index.ts",
+    "test": "jest --detectOpenHandles"
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
-    "nodemon": "^3.1.10"
+    "@types/jest": "^29.5.14",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.0.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.1",
+    "ts-jest": "^29.4.0"
   },
   "dependencies": {
     "colors": "^1.4.0",
