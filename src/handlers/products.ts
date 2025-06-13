@@ -5,7 +5,7 @@ import Product from "../models/Product.model";
 const createProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const product = await Product.create(req.body);
-    res.json({ data: product });
+    res.status(201).json({ data: product });
   } catch (error) {
     console.log(`\nOcurrio un error: ${error}\n`);
   }
@@ -17,11 +17,10 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
       limit: 5,
       attributes: { exclude: ["id", "createdAt", "updatedAt"] },
     });
-    
+
     res.status(200).json({
       data: products,
     });
-    
   } catch (error) {
     console.log(`\nOcurrio un error: ${error}\n`);
   }
