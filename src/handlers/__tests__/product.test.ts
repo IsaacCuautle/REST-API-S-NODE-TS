@@ -83,3 +83,63 @@ describe("GET /api/products:id", () => {
     expect(response.body).toHaveProperty("data");
   });
 });
+
+describe("PUT /api/products:id", () => {
+  it("Should check a valid ID in the URL", async () => {
+    const response = await Request(server)
+      .put("/api/products/not-valid-url")
+      .send({
+        name: "Nuka Cola - PUT TESTING",
+        availability: true,
+        price: 300,
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+    expect(response.body.errors).toHaveLength(1);
+    expect(response.body.errors[0].msg).toBe("El ID no valido");
+  });
+
+  it("Should display validation error messages when updating a product", async () => {
+    const response = await Request(server).put(`/api/products/1`).send({});
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+    expect(response.body.errors).toBeTruthy();
+    expect(response.body.errors).toHaveLength(5);
+
+    expect(response.status).not.toBe(200);
+    expect(response.status).not.toHaveProperty("data");
+  });
+
+  it("Should validate than the price is greater than 0", async () => {
+    const response = await Request(server).put(`/api/products/1`).send({
+      name: "Nuka Cola - PUT TESTING",
+      availability: true,
+      price: -300,
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+    expect(response.body.errors).toBeTruthy();
+    expect(response.body.errors).toHaveLength(1);
+
+    expect(response.status).not.toBe(200);
+    expect(response.status).not.toHaveProperty("data");
+  });
+
+  it("Should return a 404 for a non existent product", async () => {
+    const response = await Request(server).put(`/api/products/2000`).send({
+      name: "Nuka Cola - PUT TESTING",
+      availability: true,
+      price: 300,
+    });
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toBe("Producto no encontrado");
+
+    expect(response.status).not.toBe(200);
+    expect(response.status).not.toHaveProperty("data");
+  });
+});
