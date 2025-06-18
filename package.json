@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "nodemon -x ts-node src/index.ts",
     "pretest": "ts-node ./src/data --clear",
+    "test:coverage": "npm run pretest && jest --detectOpenHandles --coverage",
     "test": "jest --detectOpenHandles"
   },
   "devDependencies": {
