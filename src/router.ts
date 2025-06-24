@@ -13,6 +13,32 @@ import { handleInputErrors } from "./middleware";
 
 const router = Router();
 
+/** 
+ * @swagger
+ * components:
+ *  schemas:
+ *    Product:
+ *      type: object
+ *      properties:
+ *        id:
+ *         type: integer
+ *         description: The Product ID
+ *         example: 1
+ *        name:
+ *         type: string
+ *         description: The Product Name
+ *         example: Nuka cola 600ml
+ *        price:
+ *         type: float
+ *         description: The Product Price
+ *         example: 6.50
+ *        availability:
+ *         type: boolean
+ *         description: The Product Availability
+ *         example: true
+ * 
+*/
+
 router.post(
   "/",
   // Validacion
@@ -33,6 +59,25 @@ router.post(
   handleInputErrors,
   createProduct
 );
+
+/** 
+ * @swagger
+ * /api/products:
+ *  get:
+ *    summary: Get a List of Products
+ *    tags:
+ *      - Products
+ *    description:
+ *      Return a list of Products
+ *    responses:
+ *      200:
+ *        description: Successful response
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Product'
+ * 
+*/
 
 router.get("/", getProducts);
 
