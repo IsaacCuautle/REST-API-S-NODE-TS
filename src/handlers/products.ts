@@ -18,6 +18,8 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
   });
 };
 
+
+
 const getProductsByID = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const product = await Product.findByPk(id, {
