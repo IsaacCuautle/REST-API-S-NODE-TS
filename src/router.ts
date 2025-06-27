@@ -39,26 +39,6 @@ const router = Router();
  * 
 */
 
-router.post(
-  "/",
-  // Validacion
-  body("name")
-    .trim()
-    .toLowerCase()
-    .notEmpty()
-    .withMessage("El nombre del producto no debe estar vacio!"),
-  body("price")
-    .isNumeric()
-    .withMessage("Valor no valido")
-    .custom((value) => value > 0)
-    .withMessage("Valor no valido")
-    .notEmpty()
-    .withMessage("El nombre del producto no debe estar vacio!"),
-
-  // Middlewares
-  handleInputErrors,
-  createProduct
-);
 
 /** 
  * @swagger
@@ -117,6 +97,56 @@ router.get(
   handleInputErrors,
   getProductsByID
 );
+
+/**
+  * @swagger
+  * /api/products:
+  *   post:
+  *     summary: Creates a product
+  *     tags:
+  *       - Products
+  *     description: Returns a new record in the database
+  *     requestBody: 
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             type: object
+  *             properties:
+  *               name:
+  *                 type: string
+  *                 example: nuka cola 600ml
+  *               price:
+  *                 type: number
+  *                 example: 3.99
+  *     responses:
+  *       201:
+  *         description: Product created succesfully
+  *       400:
+  *         description: Bed request - invalid input data
+*/        
+
+router.post(
+  "/",
+  // Validacion
+  body("name")
+    .trim()
+    .toLowerCase()
+    .notEmpty()
+    .withMessage("El nombre del producto no debe estar vacio!"),
+  body("price")
+    .isNumeric()
+    .withMessage("Valor no valido")
+    .custom((value) => value > 0)
+    .withMessage("Valor no valido")
+    .notEmpty()
+    .withMessage("El nombre del producto no debe estar vacio!"),
+
+  // Middlewares
+  handleInputErrors,
+  createProduct
+);
+
 
 router.put(
   "/:id",
