@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { SwaggerUiOptions } from "swagger-ui-express";
 
 const options: swaggerJSDoc.Options = {
   swaggerDefinition: {
@@ -21,5 +22,14 @@ const options: swaggerJSDoc.Options = {
 };
 
 const swaggerSpec = swaggerJSDoc(options);
+const swaggerUiOptions: SwaggerUiOptions = {
+  customSiteTitle: 'Docs REST API Express / TypeScript',
+  customCss: `
+    .topbar {
+      display: none;
+    }
+  ` 
+};
 
 export default swaggerSpec;
+export { swaggerUiOptions}

@@ -13,7 +13,7 @@ import { handleInputErrors } from "./middleware";
 
 const router = Router();
 
-/** 
+/**
  * @swagger
  * components:
  *  schemas:
@@ -36,11 +36,10 @@ const router = Router();
  *         type: boolean
  *         description: The Product Availability
  *         example: true
- * 
-*/
+ *
+ */
 
-
-/** 
+/**
  * @swagger
  * /api/products:
  *  get:
@@ -56,40 +55,40 @@ const router = Router();
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Product'
- * 
-*/
+ *
+ */
 
 router.get("/", getProducts);
 
 /**
-  * @swagger
-  * /api/products/{id}:
-  *  get:
-  *     summary: Get a product by ID
-  *     tags:
-  *       - Products
-  *     description: Return a product based on its unique ID
-  *     parameters:
-  *     - in: path
-  *       name: id
-  *       description: The ID of the Product to retrive
-  *       required: true
-  *       schema:
-  *         type: integer
-  *     responses:
-  *       200:
-  *         description: Successful response
-  *         content:
-  *           application/json:
-  *             schema:
-  *               $ref: '#/components/schemas/Product'
-  * 
-  *       404:
-  *         description: Not found product
-  * 
-  *       400:
-  *         description: Bad request invalid ID
-*/
+ * @swagger
+ * /api/products/{id}:
+ *  get:
+ *     summary: Get a product by ID
+ *     tags:
+ *       - Products
+ *     description: Return a product based on its unique ID
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       description: The ID of the Product to retrive
+ *       required: true
+ *       schema:
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *
+ *       404:
+ *         description: Not found product
+ *
+ *       400:
+ *         description: Bad request invalid ID
+ */
 
 router.get(
   "/:id",
@@ -99,36 +98,36 @@ router.get(
 );
 
 /**
-  * @swagger
-  * /api/products:
-  *   post:
-  *     summary: Creates a product
-  *     tags:
-  *       - Products
-  *     description: Returns a new record in the database
-  *     requestBody: 
-  *       required: true
-  *       content:
-  *         application/json:
-  *           schema:
-  *             type: object
-  *             properties:
-  *               name:
-  *                 type: string
-  *                 example: nuka cola 600ml
-  *               price:
-  *                 type: number
-  *                 example: 3.99
-  *     responses:
-  *       201:
-  *         description: Product created succesfully
-  *         content:
-  *           application/json:
-  *             schema:
-  *               $ref: '#/components/schemas/Product'
-  *       400:
-  *         description: Bed request - invalid input data
-*/        
+ * @swagger
+ * /api/products:
+ *   post:
+ *     summary: Creates a product
+ *     tags:
+ *       - Products
+ *     description: Returns a new record in the database
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: nuka cola 600ml
+ *               price:
+ *                 type: number
+ *                 example: 3.99
+ *     responses:
+ *       201:
+ *         description: Product created succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Bed request - invalid input data
+ */
 
 router.post(
   "/",
@@ -151,50 +150,49 @@ router.post(
   createProduct
 );
 
-
 /**
-  * @swagger
-  * /api/products/{id}:
-  *   put:
-  *     summary: Updates a product with user input
-  *     tags: 
-  *       - Products
-  *     description: Returns the updated product
-  *     parameters:
-  *     - in: path
-  *       name: id
-  *       description: The ID of the Product to update
-  *       required: true
-  *       schema:
-  *         type: integer
-  *     requestBody: 
-  *           required: true
-  *           content:
-  *             application/json:
-  *               schema:
-  *                 type: object
-  *                 properties:
-  *                   name:
-  *                     type: string
-  *                     example: nuka cola 600ml
-  *                   price:
-  *                     type: number
-  *                     example: 3.99
-  *                   availability:
-  *                     type: boolean
-  *                     example: true
-  *     responses:
-  *       200:
-  *         description: Product updated succesfully
-  *         content:
-  *           application/json:
-  *             schema:
-  *               $ref: '#/components/schemas/Product'
-  *       400:
-  *         description: Bed request - Invalid id or invalid data
-  *       404:
-  *         description: Product not found
-*/
+ * @swagger
+ * /api/products/{id}:
+ *   put:
+ *     summary: Updates a product with user input
+ *     tags:
+ *       - Products
+ *     description: Returns the updated product
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       description: The ID of the Product to update
+ *       required: true
+ *       schema:
+ *         type: integer
+ *     requestBody:
+ *           required: true
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                     example: nuka cola 600ml
+ *                   price:
+ *                     type: number
+ *                     example: 3.99
+ *                   availability:
+ *                     type: boolean
+ *                     example: true
+ *     responses:
+ *       200:
+ *         description: Product updated succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Bed request - Invalid id or invalid data
+ *       404:
+ *         description: Product not found
+ */
 
 router.put(
   "/:id",
@@ -217,7 +215,6 @@ router.put(
   handleInputErrors,
   updateProduct
 );
-
 
 /**
  * @swagger
@@ -253,6 +250,34 @@ router.patch(
   updateAvailability
 );
 
+/**
+ * @swagger
+ * /api/products/{id}:
+ *  delete:
+ *    summary: Delete a product
+ *    tags:
+ *      - Products
+ *    description: Delete product
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       description: The ID of the product to delete
+ *       required: true
+ *       schema:
+ *         type: integer
+ *    responses:
+ *      200:
+ *        description: Successful response
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: string
+ *              value: Producto eliminado correctamente
+ *      400:
+ *        description: Invalid ID
+ *      404:
+ *        description: Product not found
+ */
 router.delete(
   "/:id",
   param("id").isInt().withMessage("El ID no valido"),
