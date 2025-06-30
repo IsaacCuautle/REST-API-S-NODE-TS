@@ -122,6 +122,10 @@ router.get(
   *     responses:
   *       201:
   *         description: Product created succesfully
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Product'
   *       400:
   *         description: Bed request - invalid input data
 */        
@@ -148,6 +152,50 @@ router.post(
 );
 
 
+/**
+  * @swagger
+  * /api/products/{id}:
+  *   put:
+  *     summary: Updates a product with user input
+  *     tags: 
+  *       - Products
+  *     description: Returns the updated product
+  *     parameters:
+  *     - in: path
+  *       name: id
+  *       description: The ID of the Product to update
+  *       required: true
+  *       schema:
+  *         type: integer
+  *     requestBody: 
+  *           required: true
+  *           content:
+  *             application/json:
+  *               schema:
+  *                 type: object
+  *                 properties:
+  *                   name:
+  *                     type: string
+  *                     example: nuka cola 600ml
+  *                   price:
+  *                     type: number
+  *                     example: 3.99
+  *                   availability:
+  *                     type: boolean
+  *                     example: true
+  *     responses:
+  *       200:
+  *         description: Product updated succesfully
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Product'
+  *       400:
+  *         description: Bed request - Invalid id or invalid data
+  *       404:
+  *         description: Product not found
+*/
+
 router.put(
   "/:id",
   body("name")
@@ -170,6 +218,34 @@ router.put(
   updateProduct
 );
 
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *  patch:
+ *    summary: Update product availability
+ *    tags:
+ *      - Products
+ *    description: Returns the updated availability
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       description: The ID of the product to update
+ *       required: true
+ *       schema:
+ *         type: integer
+ *    responses:
+ *      200:
+ *        description: Successful response
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Product'
+ *      400:
+ *        description: Bad request - Invalid ID
+ *      404:
+ *        description: Product not found
+ */
 router.patch(
   "/:id",
   param("id").isInt().withMessage("El ID no valido"),
