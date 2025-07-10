@@ -10,15 +10,13 @@ const createProduct = async (req: Request, res: Response): Promise<void> => {
 const getProducts = async (req: Request, res: Response): Promise<void> => {
   const products = await Product.findAll({
     limit: 5,
-    attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
   });
 
   res.status(200).json({
     data: products,
   });
 };
-
-
 
 const getProductsByID = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
@@ -88,9 +86,7 @@ const deleteProduct = async (req: Request, res: Response) => {
   // Eliminar
   await product.destroy();
 
-  res.status(200).json(
-    'Producto eliminado correctamente'
-  );
+  res.status(200).json("Producto eliminado correctamente");
 };
 
 export {
