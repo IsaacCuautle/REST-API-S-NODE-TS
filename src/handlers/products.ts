@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 import Product from "../models/Product.model";
 
@@ -10,7 +10,8 @@ const createProduct = async (req: Request, res: Response): Promise<void> => {
 const getProducts = async (req: Request, res: Response): Promise<void> => {
   const products = await Product.findAll({
     limit: 5,
-    attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+    order: [["id", "DESC"]],
   });
 
   res.status(200).json({
@@ -18,12 +19,10 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
   });
 };
 
-
-
 const getProductsByID = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const product = await Product.findByPk(id, {
-    attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
   });
 
   if (!product) {
@@ -88,9 +87,7 @@ const deleteProduct = async (req: Request, res: Response) => {
   // Eliminar
   await product.destroy();
 
-  res.status(200).json(
-    'Producto eliminado correctamente'
-  );
+  res.status(200).json("Producto eliminado correctamente");
 };
 
 export {
